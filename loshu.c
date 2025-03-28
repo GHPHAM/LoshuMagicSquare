@@ -42,26 +42,22 @@ void printLoshu(int arr[][3])
         printf("[%u %u %u]\n", arr[i][0], arr[i][1], arr[i][2]);
 }
 
-void genLoshu(int *arr)
+void genLoshu(int arr[][3])
 {
     bool used[10] = {false};
     int count = 0;
 
     while (count < 9) {
-        int num = rand() % 9 + 1;  // 1-9
+        int num = rand() % 9 + 1;
+
+        // Calculate row and column
+        int row = count / 3;
+        int col = count % 3;
 
         if (!used[num]) {
-            arr[count++] = num;
-            used[num] = true; // Switch the bool, and next time just check the key
-        }
-    }
-}
-
-void convertToSquare(int *flat, int square[3][3])
-{
-    for(int i = 0; i < 3; ++i) {
-        for(int j = 0; j < 3; ++j) {
-            square[i][j] = flat[i*3 + j];
+            arr[row][col] = num;
+            used[num] = true;
+            count++;
         }
     }
 }
@@ -97,12 +93,8 @@ int main()
             ++count;
             printf("%d\n", count);
 
-            int flatLoshu[9];
             int loshu[3][3];
-
-            genLoshu(flatLoshu);
-            convertToSquare(flatLoshu, loshu); // I should've just made the other funct pointer, but this is quicker
-
+            genLoshu(loshu);
             printLoshu(loshu);
 
             if (isLoshu(loshu))
