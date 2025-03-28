@@ -55,7 +55,7 @@ void genLoshu(int *arr)
 
         if (!used[num]) {
             arr[count++] = num;
-            used[num] = true;
+            used[num] = true; // Switch the bool, and next time just check the key
         }
     }
 }
@@ -70,14 +70,14 @@ void convertToSquare(int *flat, int square[3][3])
 }
 
 void overwritePreviousLines() {
-    // Move cursor up 3 lines
+    // Move cursor up 4 lines
     printf("\033[4A");
 
     // Clear each line
     for (int i = 0; i < 4; ++i)
         printf("\033[K\n");
 
-    // Move cursor back up 3 lines
+    // Move cursor back up 4 lines
     printf("\033[4A");
 }
 
@@ -122,6 +122,7 @@ int main()
     }
     else
     {
+        printf("What is a loshu?\n");
         int loshu[3][3] = {
             {4,9,2},
             {3,5,7},
@@ -129,13 +130,10 @@ int main()
         };
 
         if (isLoshu(loshu))
-        {
             printf("This is a loshu!\n");
-        }
         else
-        {
             printf("This is not a loshu!\n");
-        }
+
         printLoshu(loshu);
     }
     return 0;
