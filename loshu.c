@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
 
 bool isLoshu(int arr[][3])
 {
@@ -43,17 +45,79 @@ void printLoshu(int arr[][3])
         printf("[%u %u %u]\n", arr[i][0], arr[i][1], arr[i][2]);
 }
 
+void genLoshu(int *arr)
+{
+    bool used[10] = {false};
+    int count = 0;
+
+    while (count < 9) {
+        int num = rand() % 9 + 1;  // 1-9
+
+        if (!used[num]) {
+            arr[count++] = num;
+            used[num] = true;
+        }
+    }
+}
+
+void convertToSquare(int *flat, int square[3][3])
+{
+    for(int i = 0; i < 3; ++i) {
+        for(int j = 0; j < 3; ++j) {
+            square[i][j] = flat[i*3 + j];
+        }
+    }
+}
+
+void overwritePreviousLines() {
+    // Move cursor up 3 lines
+    printf("\033[4A");
+
+    // Clear each line
+    for (int i = 0; i < 4; ++i)
+        printf("\033[K\n");
+
+    // Move cursor back up 3 lines
+    printf("\033[4A");
+}
 
 int main()
 {
+    srand(time(NULL));
+
     char choice;
     printf("WELCOME TO THE LO SHU PROGRAM\n");
     printf("Run loshu randomizer? (y/n): ");
     scanf(" %c", &choice); // leading space to ignore whitespace
     while (getchar() != '\n');  // Clear input buffer, space before `%c` skips leading whitespace
 
+    unsigned long int count = 0;
     if (choice == 'y')
     {
+        printf("Randomizing! Iteration count: \n");
+        while (true)
+        {
+            ++count;
+            printf("%d\n", count);
+
+            int flatLoshu[9];
+            int loshu[3][3];
+
+            genLoshu(flatLoshu);
+            convertToSquare(flatLoshu, loshu); // I should've just made the other funct pointer, but this is quicker
+
+            printLoshu(loshu);
+
+            if (isLoshu(loshu))
+            {
+                printf("This is a loshu!\n");
+                return 0;
+            }
+            else
+            {
+                overwritePreviousLines(); // Ged rid of the previous lines
+            }
+        }
 
     }
     else
