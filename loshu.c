@@ -3,6 +3,19 @@
 
 bool isLoshu(int arr[][3])
 {
+    // Check for uniqueness
+    int *arrFlat = (int *)arr; // convert to 1D array
+    for(int i = 0; i < 9; ++i)
+    {
+        for(int k = 0; k < 9; ++k)
+        {
+            if(i == k)
+                continue;
+
+            if(arrFlat[i] == arrFlat[k])
+                return false;
+        }
+    }
 
     for (int i = 0; i < 3; ++i)
     {
@@ -48,14 +61,18 @@ int main()
         int loshu[3][3] = {
             {4,9,2},
             {3,5,7},
-            {8,1,6}
+            {8,1,4}
         };
 
         if (isLoshu(loshu))
         {
             printf("This is a loshu!\n");
-            printLoshu(loshu);
         }
+        else
+        {
+            printf("This is not a loshu!\n");
+        }
+        printLoshu(loshu);
     }
     return 0;
 }
