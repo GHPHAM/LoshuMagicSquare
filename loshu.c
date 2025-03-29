@@ -7,11 +7,13 @@ bool isLoshu(int arr[][3])
 {
     // Check for uniqueness
     bool used[10] = {false};
-    for(int i = 0; i < 3; ++i) {
-        for(int j = 0; j < 3; ++j) {
-            if(used[arr[i][j]] || arr[i][j] < 1 || arr[i][j] > 9) {
+    for(int i = 0; i < 3; ++i)
+    {
+        for(int j = 0; j < 3; ++j)
+        {
+            if(used[arr[i][j]] || arr[i][j] < 1 || arr[i][j] > 9)
                 return false;
-            }
+
             used[arr[i][j]] = true;
         }
     }
@@ -54,7 +56,8 @@ void genLoshu(int arr[][3])
         int row = count / 3;
         int col = count % 3;
 
-        if (!used[num]) {
+        if (!used[num])
+        {
             arr[row][col] = num;
             used[num] = true;
             count++;
