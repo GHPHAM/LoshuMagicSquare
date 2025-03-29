@@ -65,6 +65,8 @@ void genLoshu(int arr[][3])
     }
 }
 
+// Why I have this thing? It's because I don't want billion of lines written on the console,
+// But I also want to show progress, so I can just make it flash really quickly before being deleted.
 void overwritePreviousLines() {
     // Move cursor up 4 lines
     printf("\033[4A");
